@@ -8,6 +8,16 @@ public class Car {
 
 	private String colour;
 
+	public Car() {
+	}
+
+	public Car(String make, String model, String colour) {
+		super();
+		this.make = make;
+		this.model = model;
+		this.colour = colour;
+	}
+
 	public String getMake() {
 		return make;
 	}

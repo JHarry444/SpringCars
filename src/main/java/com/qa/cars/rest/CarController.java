@@ -1,8 +1,8 @@
 package com.qa.cars.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.cars.domain.Car;
+import com.qa.cars.service.CarService;
 
 @RestController
 @RequestMapping("/cars")
 public class CarController {
 
-	private List<Car> cars = new ArrayList<>();
+	private CarService service;
+
+	@Autowired
+	public CarController(CarService service) {
+		super();
+		this.service = service;
+	}
 
 	@RequestMapping(path = "/test", method = RequestMethod.GET)
 	public String hello() {
@@ -27,20 +34,17 @@ public class CarController {
 
 	@PostMapping("/create")
 	public String createCar(@RequestBody Car car) {
-		this.cars.add(car);
-		System.out.println(this.cars);
-		return this.cars.toString();
+		return this.service.createCar(car);
 	}
 
 	@DeleteMapping("/remove/{id}")
 	public String delete(@PathVariable int id) {
-		this.cars.remove(id);
-		return this.cars.toString();
+		return this.service.delete(id);
 	}
 
 	@GetMapping("/")
 	public List<Car> getCars() {
-		return this.cars;
+		return this.service.getCars();
 	}
 
 }

@@ -1,0 +1,1 @@
+INSERT INTO car (colour, garage_id, make, model) values ('white', null, 'Fiat', 'Panda');

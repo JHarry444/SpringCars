@@ -27,6 +27,14 @@ public class Car {
 		// REQUIRED
 	}
 
+	public Car(Integer id, String make, String model, String colour) {
+		super();
+		this.id = id;
+		this.make = make;
+		this.model = model;
+		this.colour = colour;
+	}
+
 	public Car(String make, String model, String colour) {
 		super();
 		this.make = make;

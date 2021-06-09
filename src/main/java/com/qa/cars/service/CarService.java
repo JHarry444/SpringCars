@@ -6,11 +6,12 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.qa.cars.domain.Car;
 import com.qa.cars.repo.CarRepo;
 
-//@Service
+@Service
 public class CarService {
 
 	private CarRepo repo;

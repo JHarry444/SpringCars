@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.cars.domain.Car;
+import com.qa.cars.dto.CarDTO;
 import com.qa.cars.service.CarService;
 
 @RestController
@@ -44,7 +45,7 @@ public class CarController {
 	}
 
 	@GetMapping("/")
-	public List<Car> getCars() {
+	public List<CarDTO> getCars() {
 		return this.service.getCars();
 	}
 

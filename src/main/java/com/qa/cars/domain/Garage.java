@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Garage {
 
@@ -18,6 +20,7 @@ public class Garage {
 	private String name;
 
 	@OneToMany(mappedBy = "garage")
+	@JsonIgnore
 	private List<Car> cars;
 
 	public Integer getId() {

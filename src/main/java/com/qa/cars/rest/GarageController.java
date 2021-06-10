@@ -35,12 +35,12 @@ public class GarageController {
 	}
 
 	@PostMapping("/create")
-	public Garage createGarage(@RequestBody Garage garage) {
+	public GarageDTO createGarage(@RequestBody Garage garage) {
 		return this.service.createGarage(garage);
 	}
 
 	@GetMapping("/find/{id}")
-	public Garage find(@PathVariable int id) {
+	public GarageDTO find(@PathVariable int id) {
 		return this.service.findGarage(id);
 	}
 
@@ -50,7 +50,7 @@ public class GarageController {
 	}
 
 	@PutMapping("/update/{id}")
-	public Garage updateGarage(@RequestBody Garage garage, @PathVariable int id) {
+	public GarageDTO updateGarage(@RequestBody Garage garage, @PathVariable int id) {
 		return this.service.updateGarage(id, garage);
 	}
 

@@ -6,71 +6,51 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.cars.domain.Car;
 import com.qa.cars.domain.Garage;
-import com.qa.cars.dto.CarDTO;
 import com.qa.cars.dto.GarageDTO;
 import com.qa.cars.repo.GarageRepo;
+import com.qa.cars.utils.GarageMapper;
 
 @Service
 public class GarageService {
 
 	private GarageRepo repo;
 
-	@Autowired
-	public GarageService(GarageRepo repo) {
+	private GarageMapper mapper;
+
+	public GarageService(GarageRepo repo, GarageMapper mapper) {
 		super();
 		this.repo = repo;
+		this.mapper = mapper;
 	}
 
-	public Garage createGarage(Garage garage) {
-		return this.repo.save(garage);
+	public GarageDTO createGarage(Garage garage) {
+		Garage saved = this.repo.save(garage);
+		return this.mapper.mapToDTO(saved);
 	}
 
-	public Garage findGarage(Integer id) {
+	public GarageDTO findGarage(Integer id) {
 		Optional<Garage> optionalGarage = this.repo.findById(id);
-		return optionalGarage.orElseThrow(() -> new EntityNotFoundException());
+		Garage found = optionalGarage.orElseThrow(() -> new EntityNotFoundException());
+		return this.mapper.mapToDTO(found);
 	}
 
-	public Garage updateGarage(Integer id, Garage newData) {
-		Garage existing = this.findGarage(id); // fetch existing from db
+	public GarageDTO updateGarage(Integer id, Garage newData) {
+		Garage existing = this.repo.findById(id).orElseThrow(() -> new EntityNotFoundException()); // fetch existing
+																									// from db
 
 		existing.setName(newData.getName()); // update the values
 
 		Garage updated = this.repo.save(existing); // save it back to overwrite original
 
-		return updated;
+		return this.mapper.mapToDTO(updated);
 	}
 
 	public boolean delete(int id) {
 		this.repo.deleteById(id);
 		return !this.repo.existsById(id);
-	}
-
-	private GarageDTO mapToDTO(Garage garage) {
-		GarageDTO dto = new GarageDTO();
-		dto.setId(garage.getId());
-		dto.setName(garage.getName());
-		List<CarDTO> cars = new ArrayList<>();
-		for (Car car : garage.getCars()) {
-			cars.add(this.mapToDTO(car));
-		}
-		dto.setCars(cars);
-		return dto;
-	}
-
-	private CarDTO mapToDTO(Car car) {
-		CarDTO dto = new CarDTO();
-
-		dto.setColour(car.getColour());
-		dto.setId(car.getId());
-		dto.setMake(car.getMake());
-		dto.setModel(car.getModel());
-
-		return dto;
 	}
 
 	public List<GarageDTO> getGarages() {
@@ -79,7 +59,7 @@ public class GarageService {
 		List<GarageDTO> dtos = new ArrayList<>();
 
 		for (Garage g : garages) {
-			GarageDTO dto = this.mapToDTO(g);
+			GarageDTO dto = this.mapper.mapToDTO(g);
 			dtos.add(dto);
 		}
 		return dtos;

@@ -35,12 +35,12 @@ public class CarController {
 	}
 
 	@PostMapping("/create")
-	public Car createCar(@RequestBody Car car) {
+	public CarDTO createCar(@RequestBody Car car) {
 		return this.service.createCar(car);
 	}
 
 	@GetMapping("/find/{id}")
-	public Car find(@PathVariable int id) {
+	public CarDTO find(@PathVariable int id) {
 		return this.service.findCar(id);
 	}
 
@@ -50,12 +50,12 @@ public class CarController {
 	}
 
 	@GetMapping("/findByMake/{make}")
-	public List<Car> findByMake(@PathVariable String make) {
+	public List<CarDTO> findByMake(@PathVariable String make) {
 		return this.service.findByMake(make);
 	}
 
 	@PutMapping("/update/{id}")
-	public Car updateCar(@RequestBody Car car, @PathVariable int id) {
+	public CarDTO updateCar(@RequestBody Car car, @PathVariable int id) {
 		return this.service.updateCar(id, car);
 	}
 

@@ -3,11 +3,14 @@ package com.qa.cars.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.qa.cars.domain.Car;
 import com.qa.cars.domain.Garage;
 import com.qa.cars.dto.CarDTO;
 import com.qa.cars.dto.GarageDTO;
 
+@Service
 public class GarageMapper implements Mapper<Garage, GarageDTO> {
 
 	private CarMapper carMapper;

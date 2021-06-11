@@ -9,12 +9,14 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.qa.cars.domain.Car;
 import com.qa.cars.repo.CarRepo;
 import com.qa.cars.service.CarService;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class CarServiceUnitTest {
 
 	@Autowired
